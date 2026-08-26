@@ -92,9 +92,18 @@ h1, h2, h3 { margin-top: 0; color: var(--navy-deep); font-family: var(--font-hea
 .freeSection > p:not(.eyebrow) { margin: 17px 0 27px; color: #bfd0e2; }
 .lightButton { color: var(--navy); background: var(--white); }
 
-.siteFooter { color: #c1cfdd; background: var(--navy-deep); }
+/*.siteFooter { color: #c1cfdd; background: var(--navy-deep); }*/
 .footerInner { min-height: 150px; gap: 30px; }
-.siteFooter .brandWordmark { color: var(--white); }
+/*.siteFooter .brandWordmark { color: var(--white); }*/
+.siteFooter {
+  color: #4d6380;
+  border-top: 1px solid #cfe0f5;
+  background: #eaf4ff;
+}
+
+.siteFooter .brandWordmark {
+  color: var(--navy-deep);
+}
 .footerInner > p { margin: 0; font-size: 12px; }
 
 .standardPage { width: min(1060px,calc(100% - 40px)); min-height: 65vh; margin: 0 auto; padding: 90px 0; }
