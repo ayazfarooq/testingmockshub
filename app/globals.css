@@ -25,8 +25,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .headerInner { min-height: 76px; }
 .brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; }
 .brandMark { width: 43px; height: 43px; display: grid; place-items: center; border-radius: 10px; color: var(--white); background: linear-gradient(145deg,var(--blue),var(--cyan)); font-family: var(--font-heading); font-size: 12px; font-weight: 800; letter-spacing: -.04em; box-shadow: 0 8px 20px rgba(23,105,224,.22); }
-.brandName { font-family: var(--font-heading); font-size: 20px; font-weight: 800; letter-spacing: -.055em; }
-.brandName span { color: var(--blue); }
+.brandWordmark { position: relative; display: inline-block; padding: 7px 10px; font-family: var(--font-heading); font-size: 20px; font-weight: 800; line-height: 1; letter-spacing: -.055em; white-space: nowrap; }
+.brandWordmark::before { content: ""; position: absolute; inset: 0; border: 2px solid var(--blue); border-radius: 6px; clip-path: polygon(0 0,100% 0,100% 100%,58% 100%,58% 78%,0 78%); }
+.brandH { position: relative; color: var(--blue); }
+.brandH::after { content: ""; position: absolute; left: 1px; bottom: -9px; width: 72px; height: 2px; background: var(--blue); }
+.brandHub { color: var(--blue); }
 .mainNav, .footerNav { display: flex; align-items: center; gap: 30px; }
 .mainNav a, .footerNav a { font-size: 14px; font-weight: 650; text-decoration: none; }
 .mainNav a:hover, .footerNav a:hover, .textLink:hover { color: var(--blue); }
@@ -91,7 +94,7 @@ h1, h2, h3 { margin-top: 0; color: var(--navy-deep); font-family: var(--font-hea
 
 .siteFooter { color: #c1cfdd; background: var(--navy-deep); }
 .footerInner { min-height: 150px; gap: 30px; }
-.siteFooter .brandName { color: var(--white); }
+.siteFooter .brandWordmark { color: var(--white); }
 .footerInner > p { margin: 0; font-size: 12px; }
 
 .standardPage { width: min(1060px,calc(100% - 40px)); min-height: 65vh; margin: 0 auto; padding: 90px 0; }
@@ -140,7 +143,8 @@ h1, h2, h3 { margin-top: 0; color: var(--navy-deep); font-family: var(--font-hea
 }
 @media (max-width: 650px) {
   .headerInner { min-height: 68px; }
-  .brandName { font-size: 17px; }
+  .brandWordmark { padding: 6px 8px; font-size: 17px; }
+  .brandH::after { bottom: -8px; width: 63px; }
   .brandMark { width: 37px; height: 37px; }
   .mainNav { gap: 14px; }
   .mainNav a:not(.loginButton) { display: none; }
