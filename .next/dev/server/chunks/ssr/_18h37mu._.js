@@ -22,7 +22,8 @@ function LoginForm() {
         setMessage('');
         const data = new FormData(event.currentTarget);
         try {
-            const { error } = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2f$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["supabase"].auth.signInWithPassword({
+            const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2f$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getSupabase"])();
+            const { error } = await supabase.auth.signInWithPassword({
                 email: String(data.get('email')),
                 password: String(data.get('password'))
             });
@@ -41,21 +42,21 @@ function LoginForm() {
                 children: "Welcome back"
             }, void 0, false, {
                 fileName: "[project]/app/login/LoginForm.tsx",
-                lineNumber: 31,
+                lineNumber: 32,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                 children: "Login"
             }, void 0, false, {
                 fileName: "[project]/app/login/LoginForm.tsx",
-                lineNumber: 31,
+                lineNumber: 32,
                 columnNumber: 46
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                 children: "Continue your ISTQB practice and track your progress."
             }, void 0, false, {
                 fileName: "[project]/app/login/LoginForm.tsx",
-                lineNumber: 32,
+                lineNumber: 33,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -66,7 +67,7 @@ function LoginForm() {
                         children: "Email"
                     }, void 0, false, {
                         fileName: "[project]/app/login/LoginForm.tsx",
-                        lineNumber: 34,
+                        lineNumber: 35,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -77,7 +78,7 @@ function LoginForm() {
                         required: true
                     }, void 0, false, {
                         fileName: "[project]/app/login/LoginForm.tsx",
-                        lineNumber: 34,
+                        lineNumber: 35,
                         columnNumber: 45
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -85,7 +86,7 @@ function LoginForm() {
                         children: "Password"
                     }, void 0, false, {
                         fileName: "[project]/app/login/LoginForm.tsx",
-                        lineNumber: 35,
+                        lineNumber: 36,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -96,7 +97,7 @@ function LoginForm() {
                         required: true
                     }, void 0, false, {
                         fileName: "[project]/app/login/LoginForm.tsx",
-                        lineNumber: 35,
+                        lineNumber: 36,
                         columnNumber: 51
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -106,13 +107,13 @@ function LoginForm() {
                         children: loading ? 'Signing in…' : 'Sign in'
                     }, void 0, false, {
                         fileName: "[project]/app/login/LoginForm.tsx",
-                        lineNumber: 36,
+                        lineNumber: 37,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/login/LoginForm.tsx",
-                lineNumber: 33,
+                lineNumber: 34,
                 columnNumber: 7
             }, this),
             message && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -121,13 +122,13 @@ function LoginForm() {
                 children: message
             }, void 0, false, {
                 fileName: "[project]/app/login/LoginForm.tsx",
-                lineNumber: 38,
+                lineNumber: 39,
                 columnNumber: 19
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/login/LoginForm.tsx",
-        lineNumber: 30,
+        lineNumber: 31,
         columnNumber: 5
     }, this);
 }
@@ -137,28 +138,22 @@ function LoginForm() {
 
 __turbopack_context__.s([
     "getSupabase",
-    ()=>getSupabase,
-    "supabase",
-    ()=>supabase
+    ()=>getSupabase
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$supabase$2f$supabase$2d$js$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/@supabase/supabase-js/dist/index.mjs [app-ssr] (ecmascript) <locals>");
 ;
-let supabaseClient = null;
+let client;
 function getSupabase() {
-    if (supabaseClient) return supabaseClient;
-    const supabaseUrl = ("TURBOPACK compile-time value", "https://grfgdmwlpehkgwjycnjc.supabase.co");
-    const supabaseKey = ("TURBOPACK compile-time value", "sb_publishable_a8vtvwZgRW4NpFeMsTWFHA_TIHofRw2");
+    if (client) return client;
+    const url = ("TURBOPACK compile-time value", "https://grfgdmwlpehkgwjycnjc.supabase.co");
+    const publishableKey = ("TURBOPACK compile-time value", "sb_publishable_a8vtvwZgRW4NpFeMsTWFHA_TIHofRw2");
     if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
     ;
-    supabaseClient = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$supabase$2f$supabase$2d$js$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createClient"])(supabaseUrl, supabaseKey);
-    return supabaseClient;
+    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+    ;
+    client = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$supabase$2f$supabase$2d$js$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createClient"])(url, publishableKey);
+    return client;
 }
-const supabase = new Proxy({}, {
-    get: (target, prop)=>{
-        const client = getSupabase();
-        return Reflect.get(client, prop);
-    }
-});
 }),
 ];
 
