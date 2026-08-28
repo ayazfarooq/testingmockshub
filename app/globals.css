@@ -93,12 +93,12 @@ h1, h2, h3 { margin-top: 0; color: var(--navy-deep); font-family: var(--font-hea
 .lightButton { color: var(--navy); background: var(--white); }
 
 /*.siteFooter { color: #c1cfdd; background: var(--navy-deep); }*/
-.footerInner { min-height: 150px; gap: 30px; }
+.footerInner { min-height: 100px; gap: 30px; }
 /*.siteFooter .brandWordmark { color: var(--white); }*/
 .siteFooter {
   color: #4d6380;
   border-top: 1px solid #cfe0f5;
-  background: #eaf4ff;
+  background: #e1edfb;
 }
 
 .siteFooter .brandWordmark {

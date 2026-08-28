@@ -1,11 +1,1 @@
-{
-  "version": 4,
-  "routes": {},
-  "dynamicRoutes": {},
-  "notFoundRoutes": [],
-  "preview": {
-    "previewModeId": "f579c0bcb08395895f68aed8e79d9552",
-    "previewModeSigningKey": "692c1d73c2e3ef3fc4bf449d562ed69d6f906fdcb647aabdec5943f86fc833e7",
-    "previewModeEncryptionKey": "59eaee6f64bed8be4707b5d7a6c94c51b7409c209280da409efa0d9ba233bb93"
-  }
-}
+{"version":4,"routes":{"/practice/full":{},"/practice/chapter":{},"/practice/objective":{}},"dynamicRoutes":{"/practice/[mode]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/practice/[mode]","routeRegex":"^\\/practice\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"cbbeb0555e94d56d9166b4b6d7c684cf","previewModeSigningKey":"568c7df5b36b4b4f506b08aaf89b15bef1deeddb727574a2c0929a9dd1870b57","previewModeEncryptionKey":"a14dc53771755b37a93b0cb76fb122971c034982df07b68d2e092b892f8fe8b7"}}

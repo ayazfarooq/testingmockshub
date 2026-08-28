@@ -85,14 +85,43 @@ button, a {
   box-shadow: 0 8px 20px #1769e038;
 }
 
-.brandName {
+.brandWordmark {
   font-family: var(--font-heading);
   letter-spacing: -.055em;
+  white-space: nowrap;
+  padding: 7px 10px;
   font-size: 20px;
   font-weight: 800;
+  line-height: 1;
+  display: inline-block;
+  position: relative;
 }
 
-.brandName span {
+.brandWordmark:before {
+  content: "";
+  border: 2px solid var(--blue);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 58% 100%, 58% 78%, 0 78%);
+  border-radius: 6px;
+  position: absolute;
+  inset: 0;
+}
+
+.brandH {
+  color: var(--blue);
+  position: relative;
+}
+
+.brandH:after {
+  content: "";
+  background: var(--blue);
+  width: 72px;
+  height: 2px;
+  position: absolute;
+  bottom: -9px;
+  left: 1px;
+}
+
+.brandHub {
   color: var(--blue);
 }
 
@@ -484,18 +513,19 @@ h1, h2, h3 {
   background: var(--white);
 }
 
-.siteFooter {
-  color: #c1cfdd;
-  background: var(--navy-deep);
-}
-
 .footerInner {
   gap: 30px;
-  min-height: 150px;
+  min-height: 100px;
 }
 
-.siteFooter .brandName {
-  color: var(--white);
+.siteFooter {
+  color: #4d6380;
+  background: #e1edfb;
+  border-top: 1px solid #cfe0f5;
+}
+
+.siteFooter .brandWordmark {
+  color: var(--navy-deep);
 }
 
 .footerInner > p {
@@ -717,8 +747,14 @@ h1, h2, h3 {
     min-height: 68px;
   }
 
-  .brandName {
+  .brandWordmark {
+    padding: 6px 8px;
     font-size: 17px;
+  }
+
+  .brandH:after {
+    width: 63px;
+    bottom: -8px;
   }
 
   .brandMark {

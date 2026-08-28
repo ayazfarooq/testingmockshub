@@ -1,0 +1,11 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/about/page": "/about",
+  "/disclaimer/page": "/disclaimer",
+  "/login/page": "/login",
+  "/page": "/",
+  "/practice/[mode]/page": "/practice/[mode]",
+  "/pricing/page": "/pricing",
+  "/privacy/page": "/privacy"
+}
