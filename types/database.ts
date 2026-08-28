@@ -21,14 +21,14 @@ export type AnswerOption = {
   id: number
   question_id: number
   option_text: string
-  is_correct: boolean
-  display_order: number
 }
+
+export type QuestionDifficulty = 'Recall' | 'medium' | 'Advanced'
 
 export type Question = {
   id: number
   learning_objective_id: number
   question_text: string
-  difficulty: 'Recall' | 'medium' | 'Advanced'
+  difficulty: QuestionDifficulty | null
   answer_options: AnswerOption[]
 }

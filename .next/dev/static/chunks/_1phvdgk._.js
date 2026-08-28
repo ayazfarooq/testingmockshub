@@ -207,29 +207,23 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 
 __turbopack_context__.s([
     "getSupabase",
-    ()=>getSupabase,
-    "supabase",
-    ()=>supabase
+    ()=>getSupabase
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$supabase$2f$supabase$2d$js$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/@supabase/supabase-js/dist/index.mjs [app-client] (ecmascript) <locals>");
 ;
-let supabaseClient = null;
+let client;
 function getSupabase() {
-    if (supabaseClient) return supabaseClient;
-    const supabaseUrl = ("TURBOPACK compile-time value", "https://grfgdmwlpehkgwjycnjc.supabase.co");
-    const supabaseKey = ("TURBOPACK compile-time value", "sb_publishable_a8vtvwZgRW4NpFeMsTWFHA_TIHofRw2");
+    if (client) return client;
+    const url = ("TURBOPACK compile-time value", "https://grfgdmwlpehkgwjycnjc.supabase.co");
+    const publishableKey = ("TURBOPACK compile-time value", "sb_publishable_a8vtvwZgRW4NpFeMsTWFHA_TIHofRw2");
     if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
     ;
-    supabaseClient = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$supabase$2f$supabase$2d$js$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createClient"])(supabaseUrl, supabaseKey);
-    return supabaseClient;
+    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+    ;
+    client = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$supabase$2f$supabase$2d$js$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createClient"])(url, publishableKey);
+    return client;
 }
-const supabase = new Proxy({}, {
-    get: (target, prop)=>{
-        const client = getSupabase();
-        return Reflect.get(client, prop);
-    }
-});
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }
@@ -244,28 +238,84 @@ __turbopack_context__.s([
     ()=>getChapters,
     "getLearningObjectives",
     ()=>getLearningObjectives,
+    "getQuestionsByCertification",
+    ()=>getQuestionsByCertification,
     "getQuestionsByChapter",
-    ()=>getQuestionsByChapter
+    ()=>getQuestionsByChapter,
+    "getQuestionsByLearningObjective",
+    ()=>getQuestionsByLearningObjective
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2f$client$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/supabase/client.ts [app-client] (ecmascript)");
 ;
 async function getCertifications() {
-    const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2f$client$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from('certifications').select('id, name').order('name');
-    if (error) throw new Error(error.message);
+    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2f$client$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getSupabase"])();
+    const { data, error } = await supabase.from('certifications').select('id, name').eq('available', true).order('name', {
+        ascending: true
+    });
+    if (error) {
+        console.error('Certifications query failed:', error);
+        throw new Error(error.message);
+    }
     return data ?? [];
 }
 async function getChapters(certificationId) {
-    const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2f$client$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from('chapters').select('id, certification_id, chapter_number, chapter_name').eq('certification_id', certificationId).order('chapter_number');
-    if (error) throw new Error(error.message);
+    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2f$client$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getSupabase"])();
+    const { data, error } = await supabase.from('chapters').select('id, certification_id, chapter_number, chapter_name').eq('certification_id', certificationId).order('chapter_number', {
+        ascending: true
+    });
+    if (error) {
+        console.error('Chapters query failed:', error);
+        throw new Error(error.message);
+    }
     return data ?? [];
 }
-async function getLearningObjectives(sectionId) {
-    const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2f$client$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from('learning_objectives').select('id, chapter_id, lo_number, lo_title').eq('section_id', sectionId).order('objective_code');
-    if (error) throw new Error(error.message);
+async function getLearningObjectives(chapterId) {
+    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2f$client$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getSupabase"])();
+    const { data, error } = await supabase.from('learning_objectives').select('id, chapter_id, lo_number, lo_title').eq('chapter_id', chapterId).order('lo_number', {
+        ascending: true
+    });
+    if (error) {
+        console.error('Learning-objectives query failed:', error);
+        throw new Error(error.message);
+    }
     return data ?? [];
 }
 async function getQuestionsByChapter(chapterId, limit = 20) {
-    const { data, error } = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2f$client$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["supabase"].from('questions').select(`
+    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2f$client$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getSupabase"])();
+    const { data, error } = await supabase.from('questions').select(`
+      id,
+      learning_objective_id,
+      question_text,
+      difficulty,
+      learning_objectives!inner (
+        chapter_id
+      ),
+      answer_options (
+        id,
+        question_id,
+        option_text
+      )
+    `).eq('learning_objectives.chapter_id', chapterId).limit(limit);
+    if (error) {
+        console.error('Questions query failed:', {
+            code: error.code,
+            message: error.message,
+            details: error.details,
+            hint: error.hint
+        });
+        throw new Error(error.message);
+    }
+    return (data ?? []).map((question)=>({
+            id: question.id,
+            learning_objective_id: question.learning_objective_id,
+            question_text: question.question_text,
+            difficulty: question.difficulty,
+            answer_options: question.answer_options ?? []
+        }));
+}
+async function getQuestionsByLearningObjective(learningObjectiveId, limit = 20) {
+    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2f$client$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getSupabase"])();
+    const { data, error } = await supabase.from('questions').select(`
       id,
       learning_objective_id,
       question_text,
@@ -273,18 +323,57 @@ async function getQuestionsByChapter(chapterId, limit = 20) {
       answer_options (
         id,
         question_id,
-        option_text,
-        is_correct,
-        display_order
+        option_text
       )
-    `).eq('chapter_id', chapterId).eq('available', true).limit(limit);
-    if (error) throw new Error(error.message);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    `).eq('learning_objective_id', learningObjectiveId).limit(limit);
+    if (error) {
+        console.error('Questions-by-objective query failed:', error);
+        throw new Error(error.message);
+    }
     return (data ?? []).map((question)=>({
-            ...question,
-            answer_options: [
-                ...question.answer_options
-            ]
+            id: question.id,
+            learning_objective_id: question.learning_objective_id,
+            question_text: question.question_text,
+            difficulty: question.difficulty,
+            answer_options: question.answer_options ?? []
+        }));
+}
+async function getQuestionsByCertification(certificationId, limit = 40) {
+    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2f$client$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getSupabase"])();
+    const { data, error } = await supabase.from('questions').select(`
+      id,
+      learning_objective_id,
+      question_text,
+      difficulty,
+      learning_objectives!inner (
+        id,
+        chapter_id,
+        chapters!inner (
+          id,
+          certification_id
+        )
+      ),
+      answer_options (
+        id,
+        question_id,
+        option_text
+      )
+    `).eq('learning_objectives.chapters.certification_id', certificationId).limit(limit);
+    if (error) {
+        console.error('Questions-by-certification query failed:', {
+            code: error.code,
+            message: error.message,
+            details: error.details,
+            hint: error.hint
+        });
+        throw new Error(error.message);
+    }
+    return (data ?? []).map((question)=>({
+            id: question.id,
+            learning_objective_id: question.learning_objective_id,
+            question_text: question.question_text,
+            difficulty: question.difficulty,
+            answer_options: question.answer_options ?? []
         }));
 }
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {

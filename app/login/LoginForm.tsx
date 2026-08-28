@@ -1,7 +1,7 @@
 'use client'
 
 import { FormEvent, useState } from 'react'
-import { supabase } from '@/lib/supabase/client'
+import { getSupabase } from './client'
 
 export function LoginForm() {
   const [message, setMessage] = useState('')

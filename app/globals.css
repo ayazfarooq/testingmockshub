@@ -135,6 +135,19 @@ h1, h2, h3 { margin-top: 0; color: var(--navy-deep); font-family: var(--font-hea
 .selectionPanel label { display: block; margin: 30px 0 8px; }
 .selectionPanel .primaryButton { margin: 20px 14px 0 0; }
 
+.quizContainer { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+.quizHeader { margin-bottom: 30px; text-align: center; }
+.quizHeader p { margin: 8px 0; font-size: 14px; color: var(--muted); }
+.questionCard { padding: 30px; border: 1px solid var(--line); border-radius: 12px; margin-bottom: 30px; background: var(--white); }
+.questionText { margin: 0 0 20px; font-size: 18px; font-weight: 600; color: var(--navy-deep); line-height: 1.6; }
+.optionsContainer { display: flex; flex-direction: column; gap: 12px; }
+.optionLabel { display: flex; align-items: flex-start; gap: 12px; padding: 12px; border: 1px solid var(--line); border-radius: 8px; cursor: pointer; transition: background-color .2s; }
+.optionLabel:hover { background-color: var(--soft); }
+.optionLabel input[type="radio"] { flex-shrink: 0; margin-top: 2px; }
+.optionLabel span { flex: 1; }
+.quizNav { display: flex; gap: 12px; justify-content: space-between; }
+.quizNav button { flex: 1; }
+
 @media (max-width: 1320px) {
   .pageShell { grid-template-columns: minmax(0,1fr); }
   .adRail { display: none; }
