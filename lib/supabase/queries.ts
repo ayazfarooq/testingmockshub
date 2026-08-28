@@ -70,7 +70,8 @@ export async function getQuestionsByChapter(
 
   if (error) throw new Error(error.message)
 
-  return (data ?? []).map((question) => ({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (data ?? []).map((question: any) => ({
     ...question,
     answer_options: [...question.answer_options]
   }))

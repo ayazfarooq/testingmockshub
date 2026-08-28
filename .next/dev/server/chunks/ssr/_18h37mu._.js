@@ -136,16 +136,29 @@ function LoginForm() {
 "use strict";
 
 __turbopack_context__.s([
+    "getSupabase",
+    ()=>getSupabase,
     "supabase",
     ()=>supabase
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$supabase$2f$supabase$2d$js$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/@supabase/supabase-js/dist/index.mjs [app-ssr] (ecmascript) <locals>");
 ;
-const supabaseUrl = ("TURBOPACK compile-time value", "https://grfgdmwlpehkgwjycnjc.supabase.co");
-const supabaseKey = ("TURBOPACK compile-time value", "sb_publishable_a8vtvwZgRW4NpFeMsTWFHA_TIHofRw2");
-if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
-;
-const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$supabase$2f$supabase$2d$js$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createClient"])(supabaseUrl, supabaseKey);
+let supabaseClient = null;
+function getSupabase() {
+    if (supabaseClient) return supabaseClient;
+    const supabaseUrl = ("TURBOPACK compile-time value", "https://grfgdmwlpehkgwjycnjc.supabase.co");
+    const supabaseKey = ("TURBOPACK compile-time value", "sb_publishable_a8vtvwZgRW4NpFeMsTWFHA_TIHofRw2");
+    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+    ;
+    supabaseClient = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$supabase$2f$supabase$2d$js$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createClient"])(supabaseUrl, supabaseKey);
+    return supabaseClient;
+}
+const supabase = new Proxy({}, {
+    get: (target, prop)=>{
+        const client = getSupabase();
+        return Reflect.get(client, prop);
+    }
+});
 }),
 ];
 
