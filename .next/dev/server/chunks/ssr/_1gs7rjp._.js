@@ -209,6 +209,8 @@ function getSupabase() {
 "use strict";
 
 __turbopack_context__.s([
+    "checkQuestionAnswer",
+    ()=>checkQuestionAnswer,
     "getCertifications",
     ()=>getCertifications,
     "getChapters",
@@ -219,6 +221,8 @@ __turbopack_context__.s([
     ()=>getQuestionsByCertification,
     "getQuestionsByChapter",
     ()=>getQuestionsByChapter,
+    "getQuestionsByChapters",
+    ()=>getQuestionsByChapters,
     "getQuestionsByLearningObjective",
     ()=>getQuestionsByLearningObjective
 ]);
@@ -275,6 +279,39 @@ async function getQuestionsByChapter(chapterId, limit = 20) {
     `).eq('learning_objectives.chapter_id', chapterId).limit(limit);
     if (error) {
         console.error('Questions query failed:', {
+            code: error.code,
+            message: error.message,
+            details: error.details,
+            hint: error.hint
+        });
+        throw new Error(error.message);
+    }
+    return (data ?? []).map((question)=>({
+            id: question.id,
+            learning_objective_id: question.learning_objective_id,
+            question_text: question.question_text,
+            difficulty: question.difficulty,
+            answer_options: question.answer_options ?? []
+        }));
+}
+async function getQuestionsByChapters(chapterIds, limit = 40) {
+    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2f$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getSupabase"])();
+    const { data, error } = await supabase.from('questions').select(`
+      id,
+      learning_objective_id,
+      question_text,
+      difficulty,
+      learning_objectives!inner (
+        chapter_id
+      ),
+      answer_options (
+        id,
+        question_id,
+        option_text
+      )
+    `).in('learning_objectives.chapter_id', chapterIds).limit(limit);
+    if (error) {
+        console.error('Questions-by-chapters query failed:', {
             code: error.code,
             message: error.message,
             details: error.details,
@@ -352,6 +389,25 @@ async function getQuestionsByCertification(certificationId, limit = 40) {
             difficulty: question.difficulty,
             answer_options: question.answer_options ?? []
         }));
+}
+async function checkQuestionAnswer(questionId, optionId) {
+    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2f$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getSupabase"])();
+    const { data, error } = await supabase.rpc('check_question_answer', {
+        p_question_id: questionId,
+        p_option_id: optionId
+    });
+    if (error) {
+        console.error('Answer validation failed:', error);
+        throw new Error(error.message);
+    }
+    const result = data?.[0];
+    if (!result) {
+        throw new Error('No answer-validation result was returned.');
+    }
+    return {
+        selected_is_correct: result.selected_is_correct,
+        correct_option_ids: result.correct_option_ids ?? []
+    };
 }
 }),
 ];
