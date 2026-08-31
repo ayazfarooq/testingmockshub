@@ -1,7 +1,7 @@
 'use client'
 
 import { FormEvent, useState } from 'react'
-import { getSupabaseBrowserClient } from '@/lib/supabase'
+import { getSupabase } from '@/lib/supabase/client'
 
 export function LoginForm() {
   const [message, setMessage] = useState('')
@@ -14,7 +14,7 @@ export function LoginForm() {
     const data = new FormData(event.currentTarget)
 
     try {
-      const supabase = getSupabaseBrowserClient()
+      const supabase = getSupabase()
       const { error } = await supabase.auth.signInWithPassword({
         email: String(data.get('email')),
         password: String(data.get('password')),

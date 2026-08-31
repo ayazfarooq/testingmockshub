@@ -1,4 +1,14 @@
+'use client'
+
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { getCertifications } from '@/lib/supabase/queries'
+import type { Certification } from '@/types/database'
+
+const fallbackCertifications: Certification[] = [
+  { id: 1, name: 'CTFL — Foundation Level' },
+  { id: 2, name: 'CT-AI — Testing AI-Based Systems' },
+]
 
 const options = [
   {
@@ -42,5 +52,30 @@ export function PracticeSelector() {
         ))}
       </div>
     </section>
+  )
+}
+
+export function CertificationSelect() {
+  const [certifications, setCertifications] = useState<Certification[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    getCertifications()
+      .then((data) => {
+        setCertifications(data && data.length > 0 ? data : fallbackCertifications)
+      })
+      .catch(() => setCertifications(fallbackCertifications))
+      .finally(() => setLoading(false))
+  }, [])
+
+  return (
+    <select id="certification" name="certification" defaultValue="" disabled={loading}>
+      <option value="" disabled>{loading ? 'Loading certifications...' : 'Select an ISTQB certification'}</option>
+      {certifications.map((certification) => (
+        <option key={certification.id} value={certification.id}>
+          {certification.name}
+        </option>
+      ))}
+    </select>
   )
 }
