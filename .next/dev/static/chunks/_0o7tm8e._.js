@@ -137,15 +137,17 @@ function FullPracticeQuiz({ certificationId, certificationName, onBack }) {
     _s();
     const [questions, setQuestions] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
+    const [checking, setChecking] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     const [currentQuestionIndex, setCurrentQuestionIndex] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
     const [answers, setAnswers] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(new Map());
+    const [results, setResults] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(new Map());
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "FullPracticeQuiz.useEffect": ()=>{
             (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2f$queries$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getQuestionsByCertification"])(Number(certificationId)).then(setQuestions).catch({
-                "FullPracticeQuiz.useEffect": (err)=>{
-                    console.error('Failed to load questions:', err);
-                    setError('Failed to load questions. ' + (err instanceof Error ? err.message : 'Unknown error'));
+                "FullPracticeQuiz.useEffect": (queryError)=>{
+                    console.error('Failed to load questions:', queryError);
+                    setError(queryError instanceof Error ? queryError.message : 'Unknown error');
                 }
             }["FullPracticeQuiz.useEffect"]).finally({
                 "FullPracticeQuiz.useEffect": ()=>setLoading(false)
@@ -161,46 +163,45 @@ function FullPracticeQuiz({ certificationId, certificationName, onBack }) {
                 children: "Loading questions…"
             }, void 0, false, {
                 fileName: "[project]/components/FullPracticeQuiz.tsx",
-                lineNumber: 31,
-                columnNumber: 44
+                lineNumber: 49,
+                columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/components/FullPracticeQuiz.tsx",
-            lineNumber: 31,
-            columnNumber: 12
+            lineNumber: 48,
+            columnNumber: 7
         }, this);
     }
-    if (error) {
+    if (error && questions.length === 0) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "selectionPanel",
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                    className: "quizError",
                     role: "alert",
-                    style: {
-                        color: 'var(--ink)'
-                    },
                     children: [
                         "Error: ",
                         error
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/FullPracticeQuiz.tsx",
-                    lineNumber: 37,
+                    lineNumber: 57,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                     className: "primaryButton",
+                    type: "button",
                     onClick: onBack,
                     children: "Back to setup"
                 }, void 0, false, {
                     fileName: "[project]/components/FullPracticeQuiz.tsx",
-                    lineNumber: 38,
+                    lineNumber: 60,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/components/FullPracticeQuiz.tsx",
-            lineNumber: 36,
+            lineNumber: 56,
             columnNumber: 7
         }, this);
     }
@@ -209,50 +210,77 @@ function FullPracticeQuiz({ certificationId, certificationName, onBack }) {
             className: "selectionPanel",
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                    children: "No questions available for this certification yet. Please check back later."
+                    children: "No questions are available for this certification yet."
                 }, void 0, false, {
                     fileName: "[project]/components/FullPracticeQuiz.tsx",
-                    lineNumber: 46,
+                    lineNumber: 70,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                     className: "primaryButton",
+                    type: "button",
                     onClick: onBack,
                     children: "Back to setup"
                 }, void 0, false, {
                     fileName: "[project]/components/FullPracticeQuiz.tsx",
-                    lineNumber: 47,
+                    lineNumber: 71,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/components/FullPracticeQuiz.tsx",
-            lineNumber: 45,
+            lineNumber: 69,
             columnNumber: 7
         }, this);
     }
     const currentQuestion = questions[currentQuestionIndex];
+    const selectedOptionId = answers.get(currentQuestion.id);
+    const currentResult = results.get(currentQuestion.id);
     const isLastQuestion = currentQuestionIndex === questions.length - 1;
-    const answeredCount = answers.size;
-    const handleSelectOption = (optionId)=>{
-        const newAnswers = new Map(answers);
-        newAnswers.set(currentQuestion.id, optionId);
-        setAnswers(newAnswers);
-    };
-    const handleNext = ()=>{
+    async function handleSelectOption(optionId) {
+        if (checking || currentResult) return;
+        setChecking(true);
+        setError('');
+        try {
+            const result = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2f$queries$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["checkQuestionAnswer"])(currentQuestion.id, optionId);
+            setAnswers((previousAnswers)=>{
+                const updatedAnswers = new Map(previousAnswers);
+                updatedAnswers.set(currentQuestion.id, optionId);
+                return updatedAnswers;
+            });
+            setResults((previousResults)=>{
+                const updatedResults = new Map(previousResults);
+                updatedResults.set(currentQuestion.id, result);
+                return updatedResults;
+            });
+        } catch (validationError) {
+            console.error('Failed to validate answer:', validationError);
+            setError(validationError instanceof Error ? validationError.message : 'Could not validate the selected answer.');
+        } finally{
+            setChecking(false);
+        }
+    }
+    function getOptionClass(optionId) {
+        if (!currentResult) return 'optionLabel';
+        if (currentResult.correct_option_ids.includes(optionId)) {
+            return 'optionLabel optionCorrect';
+        }
+        if (optionId === selectedOptionId) {
+            return 'optionLabel optionIncorrect';
+        }
+        return 'optionLabel optionDisabled';
+    }
+    function handleNext() {
         if (currentQuestionIndex < questions.length - 1) {
-            setCurrentQuestionIndex(currentQuestionIndex + 1);
+            setCurrentQuestionIndex((current)=>current + 1);
+            setError('');
         }
-    };
-    const handlePrevious = ()=>{
-        if (currentQuestionIndex > 0) {
-            setCurrentQuestionIndex(currentQuestionIndex - 1);
-        }
-    };
-    const handleSubmit = ()=>{
-        alert(`Quiz submitted! You answered ${answeredCount} out of ${questions.length} questions.`);
+    }
+    function handleSubmit() {
+        const correctAnswers = Array.from(results.values()).filter((result)=>result.selected_is_correct).length;
+        window.alert(`Quiz completed. You answered ${correctAnswers} of ${questions.length} questions correctly.`);
         onBack();
-    };
+    }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "quizContainer",
         children: [
@@ -264,7 +292,7 @@ function FullPracticeQuiz({ certificationId, certificationName, onBack }) {
                         children: certificationName
                     }, void 0, false, {
                         fileName: "[project]/components/FullPracticeQuiz.tsx",
-                        lineNumber: 82,
+                        lineNumber: 147,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -276,25 +304,25 @@ function FullPracticeQuiz({ certificationId, certificationName, onBack }) {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/FullPracticeQuiz.tsx",
-                        lineNumber: 83,
+                        lineNumber: 148,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                         children: [
                             "Answered: ",
-                            answeredCount,
+                            answers.size,
                             "/",
                             questions.length
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/FullPracticeQuiz.tsx",
-                        lineNumber: 84,
+                        lineNumber: 151,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/FullPracticeQuiz.tsx",
-                lineNumber: 81,
+                lineNumber: 146,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -305,102 +333,113 @@ function FullPracticeQuiz({ certificationId, certificationName, onBack }) {
                         children: currentQuestion.question_text
                     }, void 0, false, {
                         fileName: "[project]/components/FullPracticeQuiz.tsx",
-                        lineNumber: 88,
+                        lineNumber: 157,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "optionsContainer",
                         children: currentQuestion.answer_options.map((option)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                className: "optionLabel",
+                                className: getOptionClass(option.id),
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                         type: "radio",
                                         name: `question-${currentQuestion.id}`,
                                         value: option.id,
-                                        checked: answers.get(currentQuestion.id) === option.id,
-                                        onChange: ()=>handleSelectOption(option.id)
+                                        checked: selectedOptionId === option.id,
+                                        disabled: checking || Boolean(currentResult),
+                                        onChange: ()=>void handleSelectOption(option.id)
                                     }, void 0, false, {
                                         fileName: "[project]/components/FullPracticeQuiz.tsx",
-                                        lineNumber: 92,
+                                        lineNumber: 162,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         children: option.option_text
                                     }, void 0, false, {
                                         fileName: "[project]/components/FullPracticeQuiz.tsx",
-                                        lineNumber: 99,
+                                        lineNumber: 170,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, option.id, true, {
                                 fileName: "[project]/components/FullPracticeQuiz.tsx",
-                                lineNumber: 91,
+                                lineNumber: 161,
                                 columnNumber: 13
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/components/FullPracticeQuiz.tsx",
-                        lineNumber: 89,
+                        lineNumber: 159,
                         columnNumber: 9
+                    }, this),
+                    checking && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "answerStatus",
+                        children: "Checking answer…"
+                    }, void 0, false, {
+                        fileName: "[project]/components/FullPracticeQuiz.tsx",
+                        lineNumber: 175,
+                        columnNumber: 22
+                    }, this),
+                    error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "answerStatus answerIncorrect",
+                        role: "alert",
+                        children: error
+                    }, void 0, false, {
+                        fileName: "[project]/components/FullPracticeQuiz.tsx",
+                        lineNumber: 178,
+                        columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/FullPracticeQuiz.tsx",
-                lineNumber: 87,
+                lineNumber: 156,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "quizNav",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        className: "primaryButton",
-                        onClick: handlePrevious,
-                        disabled: currentQuestionIndex === 0,
-                        children: "← Previous"
-                    }, void 0, false, {
-                        fileName: "[project]/components/FullPracticeQuiz.tsx",
-                        lineNumber: 106,
-                        columnNumber: 9
-                    }, this),
-                    isLastQuestion ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        className: "primaryButton",
-                        onClick: handleSubmit,
-                        children: "Submit Quiz"
-                    }, void 0, false, {
-                        fileName: "[project]/components/FullPracticeQuiz.tsx",
-                        lineNumber: 115,
-                        columnNumber: 11
-                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        className: "primaryButton",
-                        onClick: handleNext,
-                        children: "Next →"
-                    }, void 0, false, {
-                        fileName: "[project]/components/FullPracticeQuiz.tsx",
-                        lineNumber: 119,
-                        columnNumber: 11
-                    }, this)
-                ]
-            }, void 0, true, {
+                children: isLastQuestion ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    className: "primaryButton",
+                    type: "button",
+                    disabled: !currentResult,
+                    onClick: handleSubmit,
+                    children: "Submit quiz"
+                }, void 0, false, {
+                    fileName: "[project]/components/FullPracticeQuiz.tsx",
+                    lineNumber: 188,
+                    columnNumber: 11
+                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    className: "primaryButton",
+                    type: "button",
+                    disabled: !currentResult,
+                    onClick: handleNext,
+                    children: "Next →"
+                }, void 0, false, {
+                    fileName: "[project]/components/FullPracticeQuiz.tsx",
+                    lineNumber: 197,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
                 fileName: "[project]/components/FullPracticeQuiz.tsx",
-                lineNumber: 105,
+                lineNumber: 186,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 className: "textLink",
+                type: "button",
                 onClick: onBack,
                 children: "Exit without submitting"
             }, void 0, false, {
                 fileName: "[project]/components/FullPracticeQuiz.tsx",
-                lineNumber: 125,
+                lineNumber: 208,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/FullPracticeQuiz.tsx",
-        lineNumber: 80,
+        lineNumber: 145,
         columnNumber: 5
     }, this);
 }
-_s(FullPracticeQuiz, "2REe5sSfIlrgMmbKHOugJsNUCjA=");
+_s(FullPracticeQuiz, "FZ0LxIWGe6sfi2jC/3veq6uLf7E=");
 _c = FullPracticeQuiz;
 var _c;
 __turbopack_context__.k.register(_c, "FullPracticeQuiz");
@@ -641,6 +680,8 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 "use strict";
 
 __turbopack_context__.s([
+    "checkQuestionAnswer",
+    ()=>checkQuestionAnswer,
     "getCertifications",
     ()=>getCertifications,
     "getChapters",
@@ -784,6 +825,25 @@ async function getQuestionsByCertification(certificationId, limit = 40) {
             difficulty: question.difficulty,
             answer_options: question.answer_options ?? []
         }));
+}
+async function checkQuestionAnswer(questionId, optionId) {
+    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$supabase$2f$client$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getSupabase"])();
+    const { data, error } = await supabase.rpc('check_question_answer', {
+        p_question_id: questionId,
+        p_option_id: optionId
+    });
+    if (error) {
+        console.error('Answer validation failed:', error);
+        throw new Error(error.message);
+    }
+    const result = data?.[0];
+    if (!result) {
+        throw new Error('No answer-validation result was returned.');
+    }
+    return {
+        selected_is_correct: result.selected_is_correct,
+        correct_option_ids: result.correct_option_ids ?? []
+    };
 }
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);

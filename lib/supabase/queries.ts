@@ -6,6 +6,11 @@ import type {
   Question,
 } from '@/types/database'
 
+export type AnswerCheckResult = {
+  selected_is_correct: boolean
+  correct_option_ids: number[]
+}
+
 export async function getCertifications(): Promise<Certification[]> {
   const supabase = getSupabase()
 
@@ -88,6 +93,50 @@ export async function getQuestionsByChapter(
 
   if (error) {
     console.error('Questions query failed:', {
+      code: error.code,
+      message: error.message,
+      details: error.details,
+      hint: error.hint,
+    })
+    throw new Error(error.message)
+  }
+
+  return (data ?? []).map((question) => ({
+    id: question.id,
+    learning_objective_id: question.learning_objective_id,
+    question_text: question.question_text,
+    difficulty: question.difficulty,
+    answer_options: question.answer_options ?? [],
+  }))
+}
+
+export async function getQuestionsByChapters(
+  chapterIds: number[],
+  limit = 40,
+): Promise<Question[]> {
+  const supabase = getSupabase()
+
+  const { data, error } = await supabase
+    .from('questions')
+    .select(`
+      id,
+      learning_objective_id,
+      question_text,
+      difficulty,
+      learning_objectives!inner (
+        chapter_id
+      ),
+      answer_options (
+        id,
+        question_id,
+        option_text
+      )
+    `)
+    .in('learning_objectives.chapter_id', chapterIds)
+    .limit(limit)
+
+  if (error) {
+    console.error('Questions-by-chapters query failed:', {
       code: error.code,
       message: error.message,
       details: error.details,
@@ -192,4 +241,32 @@ export async function getQuestionsByCertification(
     difficulty: question.difficulty,
     answer_options: question.answer_options ?? [],
   }))
+}
+
+export async function checkQuestionAnswer(
+  questionId: number,
+  optionId: number,
+): Promise<AnswerCheckResult> {
+  const supabase = getSupabase()
+
+  const { data, error } = await supabase.rpc('check_question_answer', {
+    p_question_id: questionId,
+    p_option_id: optionId,
+  })
+
+  if (error) {
+    console.error('Answer validation failed:', error)
+    throw new Error(error.message)
+  }
+
+  const result = data?.[0]
+
+  if (!result) {
+    throw new Error('No answer-validation result was returned.')
+  }
+
+  return {
+    selected_is_correct: result.selected_is_correct,
+    correct_option_ids: result.correct_option_ids ?? [],
+  }
 }
