@@ -194,11 +194,10 @@ export function QuestionsQuiz({ title, loadQuestions, onBack }: QuestionsQuizPro
             Next →
           </button>
         )}
+        <button className="primaryButton" type="button" onClick={onBack}>
+          Exit
+        </button>
       </div>
-
-      <button className="textLink" type="button" onClick={onBack}>
-        Exit without submitting
-      </button>
     </div>
   )
 }

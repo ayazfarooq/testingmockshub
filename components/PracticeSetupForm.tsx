@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { getCertifications } from '@/lib/supabase/queries'
+import { BackToPracticeOptionsButton } from '@/components/BackToPracticeOptionsButton'
 import { FullPracticeQuiz } from '@/components/FullPracticeQuiz'
 import type { Certification } from '@/types/database'
 
@@ -92,6 +93,7 @@ export function PracticeSetupForm({ mode }: { mode: string }) {
           We couldn&apos;t load certifications right now. Please refresh the page.
         </p>
       )}
+      <BackToPracticeOptionsButton />
       <button className="primaryButton" type="button" disabled={!certificationId} onClick={handleContinue}>
         Continue
       </button>
