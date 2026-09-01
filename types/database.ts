@@ -23,12 +23,10 @@ export type AnswerOption = {
   option_text: string
 }
 
-export type QuestionDifficulty = 'Recall' | 'medium' | 'Advanced'
-
 export type Question = {
   id: number
   learning_objective_id: number
   question_text: string
-  difficulty: QuestionDifficulty | null
+  explanation: string | null
   answer_options: AnswerOption[]
 }

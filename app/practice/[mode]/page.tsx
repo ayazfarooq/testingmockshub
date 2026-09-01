@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { PracticeSetupForm } from '@/components/PracticeSetupForm'
 
@@ -26,7 +25,6 @@ export default async function PracticeModePage({ params }: { params: Promise<{ m
       <section className="selectionPanel">
         <p className="eyebrow">Practice setup</p><h1>{selected.title}</h1><p>{selected.description}</p>
         <PracticeSetupForm mode={mode} />
-        <Link className="textLink" href="/">← Back to practice options</Link>
       </section>
     </main>
   )

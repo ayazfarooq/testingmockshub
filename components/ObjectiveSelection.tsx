@@ -45,9 +45,6 @@ export function ObjectiveSelection() {
   }, [certificationId])
 
   useEffect(() => {
-    setObjectiveId('')
-    setObjectives(null)
-
     if (!chapterId) return
 
     let cancelled = false
@@ -68,6 +65,13 @@ export function ObjectiveSelection() {
       cancelled = true
     }
   }, [chapterId])
+
+  function handleChapterChange(nextChapterId: string) {
+    setChapterId(nextChapterId)
+    setObjectiveId('')
+    setObjectives(null)
+    setObjectivesError(false)
+  }
 
   function handleStart() {
     const objective = objectives?.find((option) => String(option.id) === objectiveId)
@@ -102,7 +106,7 @@ export function ObjectiveSelection() {
           <select
             id="chapter"
             value={chapterId}
-            onChange={(event) => setChapterId(event.target.value)}
+            onChange={(event) => handleChapterChange(event.target.value)}
             disabled={!chapters || chaptersError}
           >
             <option value="" disabled>

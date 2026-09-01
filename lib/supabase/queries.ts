@@ -78,7 +78,7 @@ export async function getQuestionsByChapter(
       id,
       learning_objective_id,
       question_text,
-      difficulty,
+      explanation,
       learning_objectives!inner (
         chapter_id
       ),
@@ -105,7 +105,7 @@ export async function getQuestionsByChapter(
     id: question.id,
     learning_objective_id: question.learning_objective_id,
     question_text: question.question_text,
-    difficulty: question.difficulty,
+    explanation: question.explanation,
     answer_options: question.answer_options ?? [],
   }))
 }
@@ -122,7 +122,7 @@ export async function getQuestionsByChapters(
       id,
       learning_objective_id,
       question_text,
-      difficulty,
+      explanation,
       learning_objectives!inner (
         chapter_id
       ),
@@ -149,7 +149,7 @@ export async function getQuestionsByChapters(
     id: question.id,
     learning_objective_id: question.learning_objective_id,
     question_text: question.question_text,
-    difficulty: question.difficulty,
+    explanation: question.explanation,
     answer_options: question.answer_options ?? [],
   }))
 }
@@ -166,7 +166,7 @@ export async function getQuestionsByLearningObjective(
       id,
       learning_objective_id,
       question_text,
-      difficulty,
+      explanation,
       answer_options (
         id,
         question_id,
@@ -185,7 +185,7 @@ export async function getQuestionsByLearningObjective(
     id: question.id,
     learning_objective_id: question.learning_objective_id,
     question_text: question.question_text,
-    difficulty: question.difficulty,
+    explanation: question.explanation,
     answer_options: question.answer_options ?? [],
   }))
 }
@@ -202,7 +202,7 @@ export async function getQuestionsByCertification(
       id,
       learning_objective_id,
       question_text,
-      difficulty,
+      explanation,
       learning_objectives!inner (
         id,
         chapter_id,
@@ -238,7 +238,7 @@ export async function getQuestionsByCertification(
     id: question.id,
     learning_objective_id: question.learning_objective_id,
     question_text: question.question_text,
-    difficulty: question.difficulty,
+    explanation: question.explanation,
     answer_options: question.answer_options ?? [],
   }))
 }
