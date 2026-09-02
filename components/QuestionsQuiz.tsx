@@ -72,6 +72,9 @@ export function QuestionsQuiz({ title, loadQuestions, onBack }: QuestionsQuizPro
   const selectedOptionId = answers.get(currentQuestion.id)
   const currentResult = results.get(currentQuestion.id)
   const isLastQuestion = currentQuestionIndex === questions.length - 1
+  const correctAnswers = Array.from(results.values()).filter(
+    (result) => result.selected_is_correct,
+  ).length
 
   async function handleSelectOption(optionId: number) {
     if (checking || currentResult) return
@@ -124,10 +127,6 @@ export function QuestionsQuiz({ title, loadQuestions, onBack }: QuestionsQuizPro
   }
 
   function handleSubmit() {
-    const correctAnswers = Array.from(results.values()).filter(
-      (result) => result.selected_is_correct,
-    ).length
-
     window.alert(
       `Quiz completed. You answered ${correctAnswers} of ${questions.length} questions correctly.`,
     )
@@ -138,12 +137,14 @@ export function QuestionsQuiz({ title, loadQuestions, onBack }: QuestionsQuizPro
     <div className="quizContainer">
       <div className="quizHeader">
         <p className="eyebrow">{title}</p>
-        <p>
-          Question {currentQuestionIndex + 1} of {questions.length}
-        </p>
-        <p>
-          Answered: {answers.size}/{questions.length}
-        </p>
+        <div className="quizMeta">
+          <p>
+            Question {currentQuestionIndex + 1} of {questions.length}
+          </p>
+          <p>
+            Correct: {correctAnswers}/{questions.length}
+          </p>
+        </div>
       </div>
 
       <div className="questionCard">
@@ -175,9 +176,12 @@ export function QuestionsQuiz({ title, loadQuestions, onBack }: QuestionsQuizPro
       </div>
 
       <div className="quizNav">
+        <button className="primaryButton" type="button" onClick={onBack}>
+          Exit
+        </button>
         {isLastQuestion ? (
           <button
-            className="primaryButton"
+            className="primaryButton quizAdvanceButton"
             type="button"
             disabled={!currentResult}
             onClick={handleSubmit}
@@ -186,7 +190,7 @@ export function QuestionsQuiz({ title, loadQuestions, onBack }: QuestionsQuizPro
           </button>
         ) : (
           <button
-            className="primaryButton"
+            className="primaryButton quizAdvanceButton"
             type="button"
             disabled={!currentResult}
             onClick={handleNext}
@@ -194,9 +198,6 @@ export function QuestionsQuiz({ title, loadQuestions, onBack }: QuestionsQuizPro
             Next →
           </button>
         )}
-        <button className="primaryButton" type="button" onClick={onBack}>
-          Exit
-        </button>
       </div>
     </div>
   )
