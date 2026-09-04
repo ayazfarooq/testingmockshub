@@ -11,6 +11,7 @@ export function Footer() {
           <Link href="/about">About</Link>
           <Link href="/privacy">Privacy Policy</Link>
           <Link href="/disclaimer">Disclaimer</Link>
+          <Link href="/contact">Contact</Link>
         </nav>
         <p>© {new Date().getFullYear()} TestingMocksHub</p>
       </div>
