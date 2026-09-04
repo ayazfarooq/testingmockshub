@@ -4,7 +4,7 @@ import { Logo } from './Logo'
 const links = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
-  { href: '/pricing', label: 'Pricing' },
+  { href: '/contact', label: 'Contact' },
 ]
 
 export function Header() {
